@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Admin Table</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:20px}
+    .controls{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+    input[type="search"]{padding:6px 8px;font-size:14px;width:260px}
+    select,button{padding:6px 8px;font-size:14px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border:1px solid #ddd;vertical-align:middle}
+    th{background:#f4f4f4;text-align:left}
+    /* Zebra rows: alternate black and white */
+    tbody tr:nth-child(odd){background:#000;color:#fff}
+    tbody tr:nth-child(even){background:#fff;color:#000}
+    /* Ensure images show fully (not cropped) and remain inside cell */
+    td .imgCell{width:160px;height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    td .imgCell img{max-height:120px;max-width:160px;width:auto;height:auto;display:block;object-fit:contain}
+    td .imgCell.noimg{font-size:18px}
+    .pager{display:flex;gap:8px;align-items:center}
+    .sort-group{display:flex;gap:6px}
+    .small{font-size:13px;padding:4px 6px}
+  </style>
+</head>
+<body>
+  <h2>Quản lý sản phẩm</h2>
+
+  <div class="controls">
+    <label>Search: <input id="searchInput" type="search" placeholder="Tìm theo tiêu đề" onchange="onSearchChange(event)" oninput="onSearchChange(event)"></label>
+    <label>Show per page: <select id="perPageSelect" onchange="onPerPageChange(event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select></label>
+    <div class="sort-group">
+      <button class="small" onclick="sortByPrice('asc')">Giá ↑</button>
+      <button class="small" onclick="sortByPrice('desc')">Giá ↓</button>
+      <button class="small" onclick="sortByName('az')">Tên A–Z</button>
+      <button class="small" onclick="sortByName('za')">Tên Z–A</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hình</th>
+        <th>Tiêu đề</th>
+        <th>Giá</th>
+        <th>Danh mục</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="4">Đang tải dữ liệu…</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pager" style="margin-top:12px">
+    <button id="prevBtn" onclick="prevPage()">Prev</button>
+    <div id="pageInfo">Page 1</div>
+    <button id="nextBtn" onclick="nextPage()">Next</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
